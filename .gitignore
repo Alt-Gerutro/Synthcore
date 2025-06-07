@@ -1,0 +1,10 @@
+# Build
+build/temp
+*.o
+
+# Cache
+.cache
+
+# IDE's
+.vscode
+.zed

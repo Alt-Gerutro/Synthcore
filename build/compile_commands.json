@@ -1,0 +1,53 @@
+[
+  {
+    "arguments": [
+      "/usr/local/i386elfgcc/bin/i386-elf-gcc",
+      "-Wall",
+      "-Wextra",
+      "-ffreestanding",
+      "-fno-pie",
+      "-I../../../include",
+      "-c",
+      "-o",
+      "../../../build/temp//display.o",
+      "display.c"
+    ],
+    "directory": "/home/gerutro/Documents/SynthCore/src/drivers/io",
+    "file": "/home/gerutro/Documents/SynthCore/src/drivers/io/display.c",
+    "output": "/home/gerutro/Documents/SynthCore/build/temp/display.o"
+  },
+  {
+    "arguments": [
+      "/usr/local/i386elfgcc/bin/i386-elf-gcc",
+      "-Wall",
+      "-Wextra",
+      "-ffreestanding",
+      "-fno-pie",
+      "-I../../../include",
+      "-c",
+      "-o",
+      "../../../build/temp//tcp.o",
+      "tcp.c"
+    ],
+    "directory": "/home/gerutro/Documents/SynthCore/src/drivers/network",
+    "file": "/home/gerutro/Documents/SynthCore/src/drivers/network/tcp.c",
+    "output": "/home/gerutro/Documents/SynthCore/build/temp/tcp.o"
+  },
+  {
+    "arguments": [
+      "/usr/local/i386elfgcc/bin/i386-elf-gcc",
+      "-Wall",
+      "-Wextra",
+      "-ffreestanding",
+      "-fno-pie",
+      "-I../../include",
+      "-c",
+      "-o",
+      "../../build/temp/kernel.o",
+      "kernel.c"
+    ],
+    "directory": "/home/gerutro/Documents/SynthCore/src/kernel",
+    "file": "/home/gerutro/Documents/SynthCore/src/kernel/kernel.c",
+    "output": "/home/gerutro/Documents/SynthCore/build/temp/kernel.o"
+  }
+]
