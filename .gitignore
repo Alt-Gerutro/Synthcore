@@ -1,5 +1,7 @@
 # Build
 build/temp
+*.iso
+*.img
 *.o
 
 # Cache

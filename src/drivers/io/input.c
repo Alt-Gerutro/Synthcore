@@ -2,24 +2,72 @@
 #include <drivers/interrupts/idt.h>
 
 typedef struct {
-    u16 hex;
-    char character;
-} scodes;
+    u16 scancode;
+    char *string;
+} keyPair;
 
-scodes keys[] = {
-    {0x00, 0}, {0x10, 'q'}, {0x20, '1'}, {0x30, '2'}, {0x01, '3'}, {0x11, '4'}, {0x21, '5'}, {0x31, '6'}, {0x02, '7'}, {0x12, '8'}, {0x22, '9'}, {0x32, '0'}, {0x03, '-'}, {0x13, '='},
-    {0x23, 0}, {0x33, 0},
-    {0x04, 'q'}, {0x14, 'w'}, {0x24, 'e'}, {0x34, 'r'}, {0x05, 't'}, {0x15, 'y'}, {0x25, 'u'}, {0x35, 'i'}, {0x06, 'o'}, {0x16, 'p'}, {0x26, '['}, {0x36, ']'},
-    {0x07, 0}, {0x17, 'i'}, {0x27, 'a'}, {0x37, 's'},
-    {0x08, 'd'}, {0x18, 'f'}, {0x28, 'g'}, {0x38, 'h'},
-    {0x09, 'j'}, {0x19, 'k'}, {0x29, 'l'}, {0x39, ';'},
-    {0x0A, '\''}, {0x1A, 0}, {0x2A, 'v'}, {0x3A, 0},
-    {0x0B, 'z'}, {0x1B, 'x'}, {0x2B, 'c'}, {0x3B, 'v'},
-    {0x0C, 'b'}, {0x1C, 'n'}, {0x2C, 'm'}, {0x3C, ','},
-    {0x0D, '.'}, {0x1D, '/'}, {0x2D, 0}, {0x3D, 0},
-    {0x0E, 0}, {0x1E, 0}, {0x2E, 0}, {0x3E, 0},
-    {0x0F, 0}, {0x1F, 0}, {0x2F, 0}, {0x3F, 0},
+keyPair keys[] = {
+    {0x1, "esc"}, {0x3B, "F1"}, {0x3C, "F2"}, {0x3D, "F3"}, {0x3E, "F4"}, {0x3F, "F5"}, {0x40, "F6"}, {0x41, "F7"}, {0x42, "F8"}, {0x43, "F9"}, {0x44, "F10"}, {0x57, "F11"}, {0x58, "F12"},
+
+    {0x29, "`"}, {0x2, "1"}, {0x3, "2"}, {0x4, "3"}, {0x5, "4"}, {0x6, "5"}, {0x7, "6"}, {0x8, "7"}, {0x9, "8"}, {0xA, "9"}, {0xB, "0"}, {0x0C, "-"}, {0x0D, "="},
+    {0x10, "q"}, {0x11, "w"}, {0x12, "e"}, {0x13, "r"}, {0x14, "t"}, {0x15, "y"}, {0x16, "u"}, {0x17, "i"}, {0x18, "o"}, {0x19, "p"}, {0x1A, "["}, {0x1B, "]"},
+    {0x1E, "a"}, {0x1F, "s"}, {0x20, "d"}, {0x21, "f"}, {0x22, "g"}, {0x23, "h"}, {0x24, "j"}, {0x25, "k"}, {0x26, "l"}, {0x27, ";"}, {0x28, "\'"},
+    {0x2C, "z"}, {0x2D, "x"}, {0x2E, "c"}, {0x2F, "v"}, {0x30, "b"}, {0x31, "n"}, {0x32, "m"}, {0x33, ","}, {0x34, "."}, {0x35, "/"},
+
+    {0x0E, "backspace"}, {0x0F, "tab"}, {0x1C, "enter"}, {0x3A, "caps"},
+    {0x2A, "L shift"}, {0x36, "R shift"},
+    {0x1D, "ctrl"}, {0x5B, "meta"}, {0x38, "alt"},
+    {0x39, " "}
 };
+
+char *find_key_by_scancode(u8 sc) {
+    int k_size = sizeof(keys) / sizeof(keys[0]);
+    for (int i = 0; i < k_size; i++) {
+        if (keys[i].scancode == sc) {
+            return keys[i].string;
+        }
+    }
+    return "\0";
+}
+
+char get_char(u16 pos) {
+    char c;
+    pos *= 2;
+    u8 *vga = (u8 *)VIDEO_ADDRESS;
+    c = vga[pos];
+
+    return c;
+}
+
+u8 get_attr(u16 pos) {
+    u8 c;
+    u16 cursor = pos;
+    cursor *=2;
+    pos *= 2;
+
+    u8 *vga = (u8 *)VIDEO_ADDRESS;
+    c = vga[cursor+1];
+
+    return c;
+}
+
+void backspace() {
+    u16 cursor = get_cursor();
+    if (cursor == 0) return;
+
+    u8 at_start_line = (cursor % MAX_COLS == 0) ? 1: 0;
+
+    if (!at_start_line) {
+        write('\0', 0x0F, (cursor-2));
+        set_cursor(cursor-2);
+    } else {
+        u16 offset = cursor;
+        while(get_char(offset-1) == '\0') {
+            offset--;
+        }
+        set_cursor(offset);
+    }
+}
 
 __attribute__((naked)) static void keyboard_isr() {
     asm volatile (
@@ -40,17 +88,19 @@ void keyboard_init() {
 
 void keyboard_handler() {
     u8 sc = inB(REG_INPUT_DATA);
+    u8 style = 0x0F;
     if (sc < 0x80) {
-        char key = "??1234567890-=??qwertyuiop[]\n?asdfghjkl;'`?\\zxcvbnm,./???"[sc];
-        //char key = keys[sc].character;
-        if (sc == 0x0E) {
-            u16 cursor = get_cursor();
-            write('\0', 0x0F, (cursor-2));
-            set_cursor(cursor-2);
-        } else if (sc == 0x07) {
-            outB(0x20, 0x20);
-        } else {
-            put_char(key, 0x0F);
+        char *key = find_key_by_scancode(sc);
+        switch (sc) {
+        case 0x0E:
+            backspace();
+            break;
+        case 0x1C:
+            put_char('\n', 0x0F);
+            break;
+        default:
+            print_str(key, style);
+            break;
         }
     }
     outB(0x20, 0x20);

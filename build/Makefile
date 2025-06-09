@@ -1,6 +1,6 @@
 include build.mk
 
-DISK = synthcore.iso
+DISK = synthcore.img
 OBJS = $(filter-out kernel_entry.o, $(wildcard temp/*.o))
 
 all: clean
@@ -14,18 +14,7 @@ $(DISK): temp/bootloader.bin temp/kernel.bin
 	parted -s $@ mkpart primary ext4 1 100%
 
 	dd if=temp/bootloader.bin of=$@ conv=notrunc
-
 	dd if=temp/kernel.bin of=$@ seek=1 conv=notrunc
-
-	sudo losetup -fP $@
-	LOOP=$$(losetup -j $@ | cut -d: -f1); \
-	sudo mkfs.ext4 -L OS_ROOT $${LOOP}p1; \
-	sudo mount $${LOOP}p1 /mnt; \
-	sudo mkdir -p /mnt/bin; \
-	sudo umount /mnt; \
-	sudo losetup -d $${LOOP}
-
-	echo -ne '\x55\xaa' | dd of=$@ bs=1 seek=510 conv=notrunc
 
 temp/kernel.bin: $(OBJS)
 	$(LD) -o $@ -Ttext 0x1000 temp/kernel_entry.o $(OBJS) --oformat binary

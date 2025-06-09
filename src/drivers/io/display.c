@@ -1,5 +1,6 @@
 #include <drivers/io/base_io.h>
 
+/* Установка курсора на определённую позицию */
 void set_cursor(u16 pos) {
     pos /= 2; // Преобразуем pos в char_offset
 

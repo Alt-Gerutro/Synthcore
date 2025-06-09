@@ -52,4 +52,8 @@ void print_str(char str[], u8 attr);
 void keyboard_init();
 void keyboard_handler();
 
+void backspace();
+char get_char(u16 pos);
+u8 get_attr(u16 pos);
+
 #endif // _IO_DRIVERS_DISPLAY_SYNTHCORE
