@@ -12,12 +12,6 @@ void kmain() {
     pic_remap();
     keyboard_init();
 
-    print_str("Hello", 0x0D);
-    put_char('a', 0x0E);
-    put_char('\n', 0x0A);
-    put_char(get_char(1), get_attr(6));
-    put_char('\n', 0x0F);
-
     while(1) { asm volatile ("hlt"); }
 }
 
