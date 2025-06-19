@@ -2,12 +2,21 @@
 [extern kmain]  ; Определить внешнее значение kmain.
 [extern kpanic] ; Определить внешнее значение kpanic.
 
-cli
+start:
+    cli
 
-mov esp, 0x90000
-mov ebp, 0
+    mov esp, stack_top
+    mov ebp, 0
 
-call kmain
-call kpanic
+    call kmain
+    call kpanic
 
-jmp $
+    jmp lp
+
+lp:
+    jmp $
+
+section .bss
+stack_bottom:
+    resb 16384 ; Резерв 16 kB
+stack_top:

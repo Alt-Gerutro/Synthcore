@@ -2,7 +2,6 @@
 [bits 16]
 
 KERNEL_OFFSET equ 0x1000
-
 start:
     mov [BOOT_DRIVE], dl      ; Сохраняем номер диска
     mov sp, 0x9000            ; Устанавливаем стек
