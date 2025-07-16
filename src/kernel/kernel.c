@@ -1,11 +1,12 @@
-#include <kernel_config.h>
+#include <config/kernel/kernel_config.h>
 #include <utils/types.h>
 #include <drivers/io/base_io.h>
 #include <drivers/interrupts/pic.h>
 #include <drivers/interrupts/idt.h>
 
+extern void _start(void);
+
 __attribute__((noreturn))
-__attribute__((used))
 void kmain() {
     clear_screen();
 
@@ -15,9 +16,9 @@ void kmain() {
     while(1) { asm volatile ("hlt"); }
 }
 
-__attribute__((used))
+__attribute__((noreturn))
 void kpanic() {
     print_str("KERNEL PANIC. STOPPED.", 0x40);
-    asm volatile ("cli\n\t"
-        "hlt\n\t");
+    asm volatile ("cli\nhlt");
+    __builtin_unreachable();
 }

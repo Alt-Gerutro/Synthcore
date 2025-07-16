@@ -11,7 +11,7 @@
 #define MAX_BYTE_CHARS  MAX_CHARS * 2
 
 /*
-*   Цвета байта-аттрибута в ASCII:
+*   Colors of bits in ASCII:
 *   0 - BLACK;
 *   1 - DARK BLUE;
 *   2 - GREEN;
@@ -29,9 +29,9 @@
 *   E - YELLOW;
 *   F - WHITE.
 *
-*   Примеры:
-*   0x0F - чёрный фон, белый символ.
-*   0xE0 - жёлтый фон, чёрный символ.
+*   Examples:
+*   0x0F - black background, white symbol.
+*   0xE0 - yellow background, black symbol.
 */
 
 #define REG_SCREEN_CTRL     0x3D4

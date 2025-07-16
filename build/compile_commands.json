@@ -1,53 +1,38 @@
 [
-  {
-    "arguments": [
-      "/usr/local/i386elfgcc/bin/i386-elf-gcc",
-      "-Wall",
-      "-Wextra",
-      "-ffreestanding",
-      "-fno-pie",
-      "-I../../../include",
-      "-c",
-      "-o",
-      "../../../build/temp//display.o",
-      "display.c"
-    ],
-    "directory": "/home/gerutro/Documents/SynthCore/src/drivers/io",
-    "file": "/home/gerutro/Documents/SynthCore/src/drivers/io/display.c",
-    "output": "/home/gerutro/Documents/SynthCore/build/temp/display.o"
-  },
-  {
-    "arguments": [
-      "/usr/local/i386elfgcc/bin/i386-elf-gcc",
-      "-Wall",
-      "-Wextra",
-      "-ffreestanding",
-      "-fno-pie",
-      "-I../../../include",
-      "-c",
-      "-o",
-      "../../../build/temp//tcp.o",
-      "tcp.c"
-    ],
-    "directory": "/home/gerutro/Documents/SynthCore/src/drivers/network",
-    "file": "/home/gerutro/Documents/SynthCore/src/drivers/network/tcp.c",
-    "output": "/home/gerutro/Documents/SynthCore/build/temp/tcp.o"
-  },
-  {
-    "arguments": [
-      "/usr/local/i386elfgcc/bin/i386-elf-gcc",
-      "-Wall",
-      "-Wextra",
-      "-ffreestanding",
-      "-fno-pie",
-      "-I../../include",
-      "-c",
-      "-o",
-      "../../build/temp/kernel.o",
-      "kernel.c"
-    ],
-    "directory": "/home/gerutro/Documents/SynthCore/src/kernel",
-    "file": "/home/gerutro/Documents/SynthCore/src/kernel/kernel.c",
-    "output": "/home/gerutro/Documents/SynthCore/build/temp/kernel.o"
-  }
+{
+  "directory": "/home/gerutro/Documents/SynthCore/build/src/drivers",
+  "command": "clang  -I/home/gerutro/Documents/SynthCore/include -target i386-pc-none-elf -ffreestanding -fno-stack-protector -fno-pic -mno-red-zone -m32 -O2 -Wall -Wextra -Wno-unused-parameter -fno-function-sections -fno-data-sections -o CMakeFiles/drivers.dir/interrupts/idt.c.o -c /home/gerutro/Documents/SynthCore/src/drivers/interrupts/idt.c",
+  "file": "/home/gerutro/Documents/SynthCore/src/drivers/interrupts/idt.c",
+  "output": "src/drivers/CMakeFiles/drivers.dir/interrupts/idt.c.o"
+},
+{
+  "directory": "/home/gerutro/Documents/SynthCore/build/src/drivers",
+  "command": "clang  -I/home/gerutro/Documents/SynthCore/include -target i386-pc-none-elf -ffreestanding -fno-stack-protector -fno-pic -mno-red-zone -m32 -O2 -Wall -Wextra -Wno-unused-parameter -fno-function-sections -fno-data-sections -o CMakeFiles/drivers.dir/fs/ext4/ext4_io.c.o -c /home/gerutro/Documents/SynthCore/src/drivers/fs/ext4/ext4_io.c",
+  "file": "/home/gerutro/Documents/SynthCore/src/drivers/fs/ext4/ext4_io.c",
+  "output": "src/drivers/CMakeFiles/drivers.dir/fs/ext4/ext4_io.c.o"
+},
+{
+  "directory": "/home/gerutro/Documents/SynthCore/build/src/drivers",
+  "command": "clang  -I/home/gerutro/Documents/SynthCore/include -target i386-pc-none-elf -ffreestanding -fno-stack-protector -fno-pic -mno-red-zone -m32 -O2 -Wall -Wextra -Wno-unused-parameter -fno-function-sections -fno-data-sections -o CMakeFiles/drivers.dir/io/display.c.o -c /home/gerutro/Documents/SynthCore/src/drivers/io/display.c",
+  "file": "/home/gerutro/Documents/SynthCore/src/drivers/io/display.c",
+  "output": "src/drivers/CMakeFiles/drivers.dir/io/display.c.o"
+},
+{
+  "directory": "/home/gerutro/Documents/SynthCore/build/src/drivers",
+  "command": "clang  -I/home/gerutro/Documents/SynthCore/include -target i386-pc-none-elf -ffreestanding -fno-stack-protector -fno-pic -mno-red-zone -m32 -O2 -Wall -Wextra -Wno-unused-parameter -fno-function-sections -fno-data-sections -o CMakeFiles/drivers.dir/io/input.c.o -c /home/gerutro/Documents/SynthCore/src/drivers/io/input.c",
+  "file": "/home/gerutro/Documents/SynthCore/src/drivers/io/input.c",
+  "output": "src/drivers/CMakeFiles/drivers.dir/io/input.c.o"
+},
+{
+  "directory": "/home/gerutro/Documents/SynthCore/build/src/kernel",
+  "command": "clang  -I/home/gerutro/Documents/SynthCore/include -target i386-pc-none-elf -ffreestanding -nostdlib -fno-pic -m32 -o CMakeFiles/kernel.elf.dir/boot.S.o -c /home/gerutro/Documents/SynthCore/src/kernel/boot.S",
+  "file": "/home/gerutro/Documents/SynthCore/src/kernel/boot.S",
+  "output": "src/kernel/CMakeFiles/kernel.elf.dir/boot.S.o"
+},
+{
+  "directory": "/home/gerutro/Documents/SynthCore/build/src/kernel",
+  "command": "clang  -I/home/gerutro/Documents/SynthCore/include -target i386-pc-none-elf -ffreestanding -fno-stack-protector -fno-pic -mno-red-zone -m32 -O2 -Wall -Wextra -Wno-unused-parameter -fno-function-sections -fno-data-sections -o CMakeFiles/kernel.elf.dir/kernel.c.o -c /home/gerutro/Documents/SynthCore/src/kernel/kernel.c",
+  "file": "/home/gerutro/Documents/SynthCore/src/kernel/kernel.c",
+  "output": "src/kernel/CMakeFiles/kernel.elf.dir/kernel.c.o"
+}
 ]
