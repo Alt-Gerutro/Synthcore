@@ -1,4 +1,0 @@
-#ifndef _FS_EXT4_SYNTHCORE
-#define _FS_EXT4_SYNTHCORE
-
-#endif // _FS_EXT4_SYNTHCORE

@@ -1,49 +1,46 @@
 cmake_minimum_required(VERSION 3.20)
-project(SynthCore C ASM)
+project(SynthCore C)
 
-enable_language(C ASM)
-
-# Build configuration
-set(CMAKE_SYSTEM_NAME Generic)
-set(CMAKE_SYSTEM_PROCESSOR i386)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Compile process configuration
 set(CMAKE_C_COMPILER clang)
-set(CMAKE_ASM_COMPILER clang)
 set(CMAKE_LINKER ld.lld)
 
-# Flags
-set(CMAKE_C_FLAGS "-target i386-pc-none-elf -ffreestanding -fno-stack-protector -fno-pic -mno-red-zone -m32 -O2 -Wall -Wextra -Wno-unused-parameter -fno-function-sections -fno-data-sections")
-set(CMAKE_ASM_FLAGS "-target i386-pc-none-elf -ffreestanding -nostdlib -fno-pic -m32")
-set(CMAKE_EXE_LINKER_FLAGS "-nostdlib -T${CMAKE_SOURCE_DIR}/include/config/kernel/linker.ld")
+set(CMAKE_C_FLAGS "-target i386-pc-none-elf -m32 -ffreestanding -fno-builtin -fno-stack-protector -fno-PIC -fno-PIE -nostdlib -O0 -Wall -Wextra -Wno-unused-command-line-argument -gdwarf-4 -g")
+set(LINKER_FLAGS "-fuse-ld=lld -T${CMAKE_SOURCE_DIR}/include/config/kernel/linker.ld -nostdlib -static -z max-page-size=0x1000 -g")
 
-include_directories(${CMAKE_SOURCE_DIR}/include)
+include_directories("${CMAKE_SOURCE_DIR}/include")
 
-add_subdirectory(src)
+add_subdirectory(${CMAKE_SOURCE_DIR}/src/kernel)
+add_subdirectory(${CMAKE_SOURCE_DIR}/src/drivers)
 
 add_custom_target(iso ALL
     COMMAND ${CMAKE_COMMAND} -E make_directory iso_root/boot/grub
-    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_BINARY_DIR}/kernel.elf ${CMAKE_BINARY_DIR}/iso_root/boot
-    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/include/config/grub/grub.cfg ${CMAKE_BINARY_DIR}/iso_root/boot/grub
-    COMMAND grub-mkrescue -o "${CMAKE_BINARY_DIR}/${PROJECT_NAME}.iso" "iso_root/" -- -volid "SYNTHCORE"
+    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:kernel.elf> iso_root/boot
+    COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/include/config/grub/grub.cfg iso_root/boot/grub
+    COMMAND grub-mkrescue -o ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.iso iso_root
     DEPENDS kernel.elf
-    COMMENT "Generating bootable ISO image..."
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+    COMMENT "Building .iso file"
 )
 
 find_program(QEMU qemu-system-x86_64)
-if(QEMU)
-    add_custom_target(run
-        COMMAND ${QEMU}
-            -cdrom "${CMAKE_BINARY_DIR}/${PROJECT_NAME}.iso"
-            -machine q35
-            -m 2048
-            -serial stdio
-            -no-reboot
-            "${QEMU_EXTRA_ARGS}"
-        DEPENDS iso
-        COMMENT "Running SynthCore in QEMU..."
-    )
-else()
-    message(WARNING "qemu x86_64 not found - `run` target disabled")
-endif()
+
+add_custom_target(run
+    COMMAND ${QEMU}
+        -cdrom ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.iso
+        -no-reboot
+    DEPENDS iso
+    COMMENT "Starting ReSynthCore QEMU"
+)
+
+add_custom_target(run_debug
+    COMMAND ${QEMU}
+        -cdrom ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.iso
+        -no-reboot
+        -no-shutdown
+        -serial file:serial.log
+        -d int,cpu_reset
+    DEPENDS iso
+    COMMENT "Starting ReSynthCore QEMU in DEBUG MODE"
+)

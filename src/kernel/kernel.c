@@ -1,24 +1,37 @@
 #include <config/kernel/kernel_config.h>
-#include <utils/types.h>
-#include <drivers/io/base_io.h>
-#include <drivers/interrupts/pic.h>
-#include <drivers/interrupts/idt.h>
+#include <stdint.h>
+#include <drivers/int/interrupts_h.h>
+#include <drivers/io/screen/screen_d.h>
+#include <drivers/io/input/input_d.h>
 
-extern void _start(void);
+__attribute__((section(".multiboot"), used))
+static const struct {
+    uint32_t magic;
+    uint32_t flags;
+    uint32_t checksum;
+} multiboot_header = { MULTIBOOT_MAGIC, MULTIBOOT_FLAGS, MULTIBOOT_CHECKSUM };
 
-__attribute__((noreturn))
-void kmain() {
-    clear_screen();
+__attribute__((noreturn, used))
+void kpanic() {
+    print_str("KERNEL PANIC\n", make_color(VGA_BYTE_DARK_RED, VGA_BYTE_BLACK));
 
-    pic_remap();
-    keyboard_init();
-
-    while(1) { asm volatile ("hlt"); }
+    while (1) {
+        __asm__ volatile("cli");
+        __asm__ volatile("hlt");
+    }
 }
 
-__attribute__((noreturn))
-void kpanic() {
-    print_str("KERNEL PANIC. STOPPED.", 0x40);
-    asm volatile ("cli\nhlt");
-    __builtin_unreachable();
+__attribute__((noreturn, used))
+void kmain() {
+    int_init();
+    irq_mask(0);
+    clear_screen();
+
+    print_str("Hello, World!\n", make_color(VGA_BYTE_BLACK, VGA_BYTE_BLUE));
+
+    keyboard_init();
+
+    while (1) {
+        __asm__ volatile ("hlt");
+    }
 }

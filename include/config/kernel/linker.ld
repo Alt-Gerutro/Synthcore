@@ -1,20 +1,35 @@
-ENTRY(_start)
+ENTRY(kmain)
+
+STACK_SIZE = 16K;
 
 SECTIONS {
     . = 1M;
-    
-    .text : {
-        KEEP(*(.multiboot))
-        *(.text*)
+
+    .text : ALIGN(4) {
+        *(.multiboot)
+        *(.text)
     }
-    
-    .rodata : { *(.rodata*) }
-    .data : { *(.data*) }
-    .bss : {
-        *(.bss*)
+
+    .rodata : ALIGN(4) {
+        *(.rodata)
+    }
+
+    .data : ALIGN(4) {
+        *(.data)
+    }
+
+    .bss : ALIGN(4) {
         *(COMMON)
-        stack_bottom = .;
-        . = . + 16384;
-        stack_top = .;
+        *(.bss)
+    }
+
+    . = ALIGN(16);
+    kernel_stack_bottom = .;
+    . += STACK_SIZE;
+    kernel_stack_top = .;
+
+    /DISCARD/ : {
+        *(.eh_frame)
+        *(.comment)
     }
 }

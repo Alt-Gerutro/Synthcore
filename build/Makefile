@@ -143,17 +143,17 @@ run/fast:
 .PHONY : run/fast
 
 #=============================================================================
-# Target rules for targets named drivers
+# Target rules for targets named run_debug
 
 # Build rule for target.
-drivers: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 drivers
-.PHONY : drivers
+run_debug: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 run_debug
+.PHONY : run_debug
 
 # fast build rule for target.
-drivers/fast:
-	$(MAKE) $(MAKESILENT) -f src/drivers/CMakeFiles/drivers.dir/build.make src/drivers/CMakeFiles/drivers.dir/build
-.PHONY : drivers/fast
+run_debug/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_debug.dir/build.make CMakeFiles/run_debug.dir/build
+.PHONY : run_debug/fast
 
 #=============================================================================
 # Target rules for targets named kernel.elf
@@ -168,6 +168,19 @@ kernel.elf/fast:
 	$(MAKE) $(MAKESILENT) -f src/kernel/CMakeFiles/kernel.elf.dir/build.make src/kernel/CMakeFiles/kernel.elf.dir/build
 .PHONY : kernel.elf/fast
 
+#=============================================================================
+# Target rules for targets named drivers
+
+# Build rule for target.
+drivers: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 drivers
+.PHONY : drivers
+
+# fast build rule for target.
+drivers/fast:
+	$(MAKE) $(MAKESILENT) -f src/drivers/CMakeFiles/drivers.dir/build.make src/drivers/CMakeFiles/drivers.dir/build
+.PHONY : drivers/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -178,6 +191,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... iso"
 	@echo "... run"
+	@echo "... run_debug"
 	@echo "... drivers"
 	@echo "... kernel.elf"
 .PHONY : help
