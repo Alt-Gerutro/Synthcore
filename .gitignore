@@ -4,5 +4,7 @@ build
 *.img
 *.o
 
+compile_commands.json
+
 # Hidden dirs
 .*/
