@@ -1,2 +1,0 @@
-/usr/sbin/ar qc libdrivers.a CMakeFiles/drivers.dir/video/screen.c.o CMakeFiles/drivers.dir/keyboard/input.c.o
-/usr/sbin/ranlib libdrivers.a

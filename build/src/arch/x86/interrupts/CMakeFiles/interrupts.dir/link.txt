@@ -1,2 +1,0 @@
-/usr/sbin/ar qc libinterrupts.a CMakeFiles/interrupts.dir/gdt.c.o CMakeFiles/interrupts.dir/idt.c.o CMakeFiles/interrupts.dir/pic.c.o CMakeFiles/interrupts.dir/isr.c.o CMakeFiles/interrupts.dir/interrupts.c.o
-/usr/sbin/ranlib libinterrupts.a

@@ -1,5 +1,5 @@
 # Build
-./build
+build
 *.iso
 *.img
 *.o
@@ -10,3 +10,4 @@
 # Dev scripts
 scripts/run_dev.sh
 scripts/run_debug.sh
+compile_commands.json
