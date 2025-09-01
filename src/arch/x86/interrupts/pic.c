@@ -1,5 +1,4 @@
-#include "utils/byte_io.h"
-#include <drivers/int/pic_d.h>
+#include <arch/x86/interrupts/pic.h>
 
 void sendEOI(uint8_t irq) {
     if (irq >= 8) {

@@ -1,5 +1,5 @@
-#ifndef _DRIVERS_INT_GDT_SYNTHCORE_H
-#define _DRIVERS_INT_GDT_SYNTHCORE_H
+#ifndef _ARCH_INT_GDT_SYNTHCORE_H
+#define _ARCH_INT_GDT_SYNTHCORE_H 1
 
 #include <stdint.h>
 
@@ -73,4 +73,4 @@ struct gdtp;
 uint64_t create_descriptor(uint32_t base, uint32_t limit, uint16_t flags);
 void gdt_init();
 
-#endif // _DRIVERS_INT_GDT_SYNTHCORE_H
+#endif // _ARCH_INT_GDT_SYNTHCORE_H

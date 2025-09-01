@@ -1,7 +1,10 @@
 #ifndef _DRIVERS_SCREEN_SYNTHCORE_H
 #define _DRIVERS_SCREEN_SYNTHCORE_H
 
+#include <stdarg.h>
 #include <stdint.h>
+
+#define NULL    ((void*)0)
 
 #define VGA_ADDRESS     0xB8000
 #define MAX_ROWS        25
@@ -69,5 +72,8 @@ char get_char(uint16_t pos);
 uint8_t get_attr(uint16_t pos);
 
 void backspace();
+
+void vformat(char buffer[], uint32_t buffer_size, char* fmt, va_list args);
+void print_fmt(char* fmt, ...);
 
 #endif // _DRIVERS_INPUT_SYNTHCORE_H

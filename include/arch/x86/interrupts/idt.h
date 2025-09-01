@@ -1,5 +1,5 @@
-#ifndef _DRIVERS_INT_IDT_SYNTHCORE_H
-#define _DRIVERS_INT_IDT_SYNTHCORE_H
+#ifndef _ARCH_INT_IDT_SYNTHCORE_H
+#define _ARCH_INT_IDT_SYNTHCORE_H 1
 
 #include <stdint.h>
 
@@ -25,4 +25,4 @@ void idt_set_gate(uint8_t vector, uint32_t handler, uint8_t selector, uint8_t fl
 
 void idt_init();
 
-#endif // _DRIVERS_INT_IDT_SYNTHCORE_H
+#endif // _ARCH_INT_IDT_SYNTHCORE_H

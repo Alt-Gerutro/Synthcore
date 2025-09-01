@@ -1,4 +1,4 @@
-#include <drivers/int/gdt_d.h>
+#include <arch/x86/interrupts/gdt.h>
 #include <stdint.h>
 
 uint64_t gdt[GDT_SIZE];

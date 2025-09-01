@@ -1,4 +1,4 @@
-#include <drivers/int/interrupts_h.h>
+#include <arch/x86/interrupts/interrupts.h>
 
 void int_init() {
     gdt_init();

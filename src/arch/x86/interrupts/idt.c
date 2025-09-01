@@ -1,20 +1,10 @@
-#include <drivers/int/idt_d.h>
+#include <arch/x86/interrupts/idt.h>
 #include <stdint.h>
-#include <drivers/io/screen/screen_d.h>
+#include <drivers/video/screen.h>
+#include <arch/x86/interrupts/isr.h>
 
 struct IDT_entry idt[IDT_SIZE];
 struct IDT_ptr idtp;
-
-void default_handler_body() {}
-
-void default_handler() {
-    __asm__ volatile(
-        "pusha\n"
-        "call default_handler_body\n"
-        "popa\n"
-        "iret"
-    );
-}
 
 void idt_set_gate(uint8_t vector, uint32_t handler, uint8_t selector, uint8_t flags) {
     idt[vector].offset_low = handler & 0xFFFF;

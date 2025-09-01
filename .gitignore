@@ -8,3 +8,8 @@ compile_commands.json
 
 # Hidden dirs
 .*/
+
+# Dev scripts
+scripts/run_dev.sh
+scripts/run_debug.sh
+compile_commands.json

@@ -1,5 +1,5 @@
-#ifndef _DRIVERS_INT_PIC_SYNTHCORE_H
-#define _DRIVERS_INT_PIC_SYNTHCORE_H
+#ifndef _ARCH_INT_PIC_SYNTHCORE_H
+#define _ARCH_INT_PIC_SYNTHCORE_H 1
 
 #include <stdint.h>
 #include <utils/byte_io.h>
@@ -32,4 +32,4 @@ void irq_unmask(uint8_t irqLine);
 
 void sendEOI(uint8_t irq);
 
-#endif // _DRIVERS_INT_PIC_SYNTHCORE_H
+#endif // _ARCH_INT_PIC_SYNTHCORE_H
