@@ -1,0 +1,10 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/gerutro/Documents/SynthCore/build/cmake_install.cmake",
+		"/home/gerutro/Documents/SynthCore/build/src/kernel/cmake_install.cmake",
+		"/home/gerutro/Documents/SynthCore/build/src/arch/x86/interrupts/cmake_install.cmake",
+		"/home/gerutro/Documents/SynthCore/build/src/drivers/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

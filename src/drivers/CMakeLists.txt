@@ -1,10 +1,6 @@
 add_library(drivers STATIC
-    int/gdt_d.c
-    int/idt_d.c
-    int/pic_d.c
-    int/interrupts_h.c
-    io/screen_d.c
-    io/input_d.c
+    video/screen.c
+    keyboard/input.c
 )
 
 target_include_directories(drivers PUBLIC ${CMAKE_SOURCE_DIR}/include)

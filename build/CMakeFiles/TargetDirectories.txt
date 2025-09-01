@@ -1,0 +1,14 @@
+/home/gerutro/Documents/SynthCore/build/CMakeFiles/iso.dir
+/home/gerutro/Documents/SynthCore/build/CMakeFiles/run.dir
+/home/gerutro/Documents/SynthCore/build/CMakeFiles/run_debug.dir
+/home/gerutro/Documents/SynthCore/build/CMakeFiles/edit_cache.dir
+/home/gerutro/Documents/SynthCore/build/CMakeFiles/rebuild_cache.dir
+/home/gerutro/Documents/SynthCore/build/src/kernel/CMakeFiles/kernel.elf.dir
+/home/gerutro/Documents/SynthCore/build/src/kernel/CMakeFiles/edit_cache.dir
+/home/gerutro/Documents/SynthCore/build/src/kernel/CMakeFiles/rebuild_cache.dir
+/home/gerutro/Documents/SynthCore/build/src/arch/x86/interrupts/CMakeFiles/interrupts.dir
+/home/gerutro/Documents/SynthCore/build/src/arch/x86/interrupts/CMakeFiles/edit_cache.dir
+/home/gerutro/Documents/SynthCore/build/src/arch/x86/interrupts/CMakeFiles/rebuild_cache.dir
+/home/gerutro/Documents/SynthCore/build/src/drivers/CMakeFiles/drivers.dir
+/home/gerutro/Documents/SynthCore/build/src/drivers/CMakeFiles/edit_cache.dir
+/home/gerutro/Documents/SynthCore/build/src/drivers/CMakeFiles/rebuild_cache.dir

@@ -1,8 +1,12 @@
 # Build
-build
+./build
 *.iso
 *.img
 *.o
 
 # Hidden dirs
 .*/
+
+# Dev scripts
+scripts/run_dev.sh
+scripts/run_debug.sh
